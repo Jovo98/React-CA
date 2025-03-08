@@ -32,16 +32,16 @@ export function SpecificProduct() {
           />
           <h2>{product.title}</h2>
           <p>{product.description}</p>
-          {product.onSale ? (
-            <>
-              <p className="line-through">{product.price}</p>
-              <p>{product.discountedPrice}</p>
-            </>
+          {product.discountedPrice < product.price ? (
+              <>
+                <p className="line-through text-gray-500">${product.price}</p>
+                <p className="text-red-500 font-bold">SALE: ${product.discountedPrice}</p>
+              </>
           ) : (
-            <p>{product.price}</p>
+              <p className="font-bold">${product.price}</p>
           )}
           <button
-            className="border p-1"
+            className="border p-1 cursor-pointer"
             onClick={() => {
               addToCart(product);
             }}

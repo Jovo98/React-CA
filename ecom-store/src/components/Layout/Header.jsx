@@ -7,7 +7,7 @@ export function Header() {
         <Link to={"/"}>eCom store</Link>
         <nav className="flex gap-2">
           <Link
-            to={"/products"}
+            to={"/checkout"}
             className="text-lg cursor-pointer text-blue-600"
           >
             Cart
