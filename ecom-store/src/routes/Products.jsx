@@ -49,7 +49,7 @@ export function Products() {
 
   return (
       <>
-        <h1 className="font-bold text-3xl">Products Page</h1>
+        <h1 className="m-4 font-bold text-3xl">Products Page</h1>
         <div className="relative w-1/2 mx-auto">
           <input
               type="text"

@@ -4,38 +4,30 @@ export const useCart = create((set) => ({
     cart: [],
     addToCart: (product) =>
         set((state) => {
-            const existingProductIndex = state.cart.findIndex(
-                (item) => item.id === product.id
-            );
+            const updatedCart = [...state.cart];
+            const existingProductIndex = updatedCart.findIndex((item) => item.id === product.id);
 
             if (existingProductIndex !== -1) {
-                const updatedCart = [...state.cart];
                 updatedCart[existingProductIndex].quantity += 1;
-                return { cart: updatedCart };
             } else {
-                return { cart: [...state.cart, { ...product, quantity: 1 }] };
+                updatedCart.push({ ...product, quantity: 1 });
             }
-        }),
 
+            return { cart: updatedCart };
+        }),
     removeFromCart: (productId) =>
         set((state) => {
-            const existingProductIndex = state.cart.findIndex(
-                (item) => item.id === productId
-            );
-
-            if (existingProductIndex !== -1) {
-                const updatedCart = [...state.cart];
-                const product = updatedCart[existingProductIndex];
-
-                if (product.quantity > 1) {
-                    product.quantity -= 1;
-                } else {
-                    updatedCart.splice(existingProductIndex, 1);
+            const updatedCart = state.cart.map((item) => {
+                if (item.id === productId) {
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    } else {
+                        return null;
+                    }
                 }
-
-                return { cart: updatedCart };
-            }
-
-            return state;
+                return item;
+            }).filter(Boolean);
+            return { cart: updatedCart };
         }),
+    clearCart: () => set({ cart: [] }),
 }));
